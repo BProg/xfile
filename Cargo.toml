@@ -1,6 +1,9 @@
 [package]
-name = "x-files"
+name = "z-files"
 version = "0.1.0"
 authors = ["Ion Ostafi <ion.ostafi@ellation.com>"]
 
 [dependencies]
+clap = "2.26.0"
+csv = "0.14"
+rustc-serialize = "0.3.24"
