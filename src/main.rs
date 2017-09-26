@@ -2,6 +2,7 @@ extern crate clap;
 use clap::{Arg, App};
 extern crate csv;
 extern crate rustc_serialize;
+mod password_printer;
 
 #[derive(RustcDecodable)]
 #[derive(Debug)]
@@ -27,6 +28,14 @@ struct PasswordRecord {
 }
 
 fn main() {
+    let mut passes: Vec<String> = Vec::new();
+    passes.push(String::from("ebay"));
+    passes.push(String::from("amazon"));
+    password_printer::print_password_titles(passes);
+}
+
+#[allow(dead_code)]
+fn read_and_output_passwords() {
     let passwords = csv::Reader::from_file("/Users/iostafi/Documents/Documents_offline/pk_backup_2016-09-30.txt");
     if let Ok(mut ps) = passwords {
         for p in ps.decode() {
@@ -38,6 +47,7 @@ fn main() {
     }
 }
 
+#[allow(dead_code)]
 fn parse_input_arguments() {
     let matches = App::new("zfiles")
         .version("0.1.0")
