@@ -3,48 +3,27 @@ use clap::{Arg, App};
 extern crate csv;
 extern crate rustc_serialize;
 mod password_printer;
-
-#[derive(RustcDecodable)]
-#[derive(Debug)]
-struct PasswordRecord {
-    url: String,
-    username: String,
-    password: String,
-    extra: String,
-    name: String,
-    grouping: String,
-    fav: u32,
-    custom_fields: String,
-    last_modified_time: i64,
-    uid: i64,
-    username_label: String,
-    password_label: String,
-    website_label: String,
-    notes_label: String,
-    password_set_date: u64,
-    flags: i32,
-    image_index: i32,
-    data_version: i32
-}
+mod password_records;
+use password_records::PasswordRecord;
 
 fn main() {
-    let mut passes: Vec<String> = Vec::new();
-    passes.push(String::from("ebay"));
-    passes.push(String::from("amazon"));
-    password_printer::print_password_titles(passes);
+    let records = read_records();
+    password_printer::print_password_records(records);
 }
 
 #[allow(dead_code)]
-fn read_and_output_passwords() {
-    let passwords = csv::Reader::from_file("/Users/iostafi/Documents/Documents_offline/pk_backup_2016-09-30.txt");
-    if let Ok(mut ps) = passwords {
-        for p in ps.decode() {
-            if let Ok(pass) = p {
+fn read_records() -> Vec<PasswordRecord> {
+    let mut password_records: Vec<PasswordRecord> = Vec::new();
+    let csv_values = csv::Reader::from_file("/Users/iostafi/Documents/Documents_offline/pk_backup_2016-09-30.txt");
+    if let Ok(mut passwords) = csv_values {
+        for password in passwords.decode() {
+            if let Ok(pass) = password {
                 let record: PasswordRecord = pass;
-                println!("{:?}", record);
+                password_records.push(record);
             }
         }
     }
+    password_records
 }
 
 #[allow(dead_code)]
