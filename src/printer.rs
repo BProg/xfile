@@ -1,6 +1,6 @@
 extern crate console;
-use self::console::Term;
-use password_record::PasswordRecord;
+use console::Term;
+use crate::password_record::PasswordRecord;
 
 pub fn print_record_name_and_password(records: Vec<PasswordRecord>) {
   let term = Term::stdout();

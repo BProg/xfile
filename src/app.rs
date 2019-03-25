@@ -1,3 +1,4 @@
+extern crate clap;
 use clap::{App, Arg, SubCommand};
 
 pub fn create_app<'a>() -> App<'a, 'a> {
@@ -23,4 +24,30 @@ pub fn create_app<'a>() -> App<'a, 'a> {
         .takes_value(false)
       )
     )
+    .subcommand(
+      SubCommand::with_name("add")
+      .about("Add new password to the registry")
+      .arg(
+        Arg::with_name("name")
+        .short("-n")
+        .long("--name")
+        .help("Name of the new record")
+        .takes_value(true)
+      )
+      .arg(
+        Arg::with_name("password")
+        .short("-p")
+        .long("--password")
+        .help("Password of the new record")
+        .takes_value(true)
+      )
+    )
+}
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_App() {
+        assert_eq!(2 + 2, 4);
+    }
 }

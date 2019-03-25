@@ -1,8 +1,8 @@
-extern crate clap;
 extern crate csv;
 extern crate rustc_serialize;
+extern crate clap;
+use clap::{App, Arg, SubCommand};
 
-pub mod app;
 pub mod printer;
 pub mod password_record;
 pub mod reader;

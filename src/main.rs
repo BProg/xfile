@@ -1,5 +1,7 @@
 extern crate xfile;
-use xfile::{app, printer, reader};
+use xfile::{printer, reader};
+
+mod app;
 
 fn main() {
   let app = app::create_app();
